@@ -3,11 +3,13 @@ import './App.css';
 import { Context } from './Context';
 import Entries from './components/Entries';
 import CreditForm from './components/CreditForm';
+import Try from './components/Try';
 
 function App() {
 
   const [theme, setTheme] = useState('light');
   const [entries, setEntries] = useState({});
+  const [results, setResults] = useState({});
 
   useEffect(() => {
     console.log('kral:', entries);
@@ -17,12 +19,15 @@ function App() {
     theme,
     setTheme,
     entries,
-    setEntries
+    setEntries,
+    results,
+    setResults
   };
 
   return (
     <Context.Provider value={data}>
       <div className="App">
+        {/* < Try /> */}
         <Entries />
         < CreditForm />
       </div>

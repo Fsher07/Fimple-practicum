@@ -7,7 +7,7 @@ function Entries() {
   const { theme, setTheme } = useContext(Context);
 
   return (
-    <div>
+    <div className='test'>
       <div>Entries</div>
       <div>{theme}</div>
       <button onClick={() => setTheme('dark')}>Dark</button>
