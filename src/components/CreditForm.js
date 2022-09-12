@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useContext } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Context } from '../Context';
@@ -9,10 +9,13 @@ import PaymentCard from './PaymentCard';
 
 function CreditForm() {
 
+  const [ row, setRow ] = useState(false);
   const { entries, setEntries } = useContext(Context);
   const { register, control, handleSubmit, formState: { errors } } = useForm();
+  
+  const { amount } = entries;
 
-  const currencies = [
+  const intervals = [
     {
       value: 7,
       label: 'Weekly',
@@ -35,7 +38,7 @@ function CreditForm() {
 
   return (
     <>
-    <img src="https://fimple.co.uk/wp-content/uploads/2020/09/Fimple_Logo-edited-logo-2.svg" />
+    <img src="https://fimple.co.uk/wp-content/uploads/2020/09/Fimple_Logo-edited-logo-2.svg" alt="company logo" />
     <form className="creditForm-container" onSubmit={handleSubmit(onSubmit)}>
       <div className='credit-form'>
         <Controller
@@ -65,12 +68,12 @@ function CreditForm() {
         />
 
         <Controller
-          name="bank_rate"
+          name="interest_rate"
           control={control}
           rules={{ required: true }}
           render={({ field: { onChange, value, name} }) => (
             <NumericFormat
-              label='Bank Rate'
+              label='Interest Rate'
               error={!!errors.bank_rate}
               name={name}
               value={value}
@@ -143,18 +146,43 @@ function CreditForm() {
           helperText="Select payment frequency"
           defaultValue={30}
         >
-          {currencies.map((option) => (
+          {intervals.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {option.label}
             </MenuItem>
           ))}
         </TextField>
+        {/* create a dropdown with Controller for number of installments */}
+        <Controller
+          name="installments"
+          control={control}
+          rules={{ required: true }}
+          render={({ field: { onChange, value, name} }) => (
+            <NumericFormat
+              label='Number of Months'
+              error={!!errors.installments}
+              name={name}
+              value={value}
+              customInput={TextField}
+              isAllowed={(values) => {
+                const { value } = values;
+                return value >= 0 && value <= 120;
+              }}
+              onValueChange={(values) => {
+                const {floatValue} = values;
+                onChange(floatValue);}}
+              helperText={errors.bank_rate ? 'This field is required' : 'Maximum should be 120'}
+            />
+          )}
+        />
       </div>
       <div className='formButton'>
-        <Button type="submit" variant="contained" color="error" size="large">Submit</Button>
+        <Button type="submit" variant="contained" color="error" size="large" onClick={() => setRow(true)}>Submit</Button>
       </div>
     </form>
-    < PaymentCard />
+    <div className='paymentRow'>
+      {amount && <PaymentCard />}
+    </div>
     </>
   )
 }

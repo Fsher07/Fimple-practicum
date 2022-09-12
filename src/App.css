@@ -39,3 +39,7 @@ body {
 img {
   max-width: 500px;
 }
+
+.rowTitle {
+  color: rgba(0, 0, 0, 0.6);
+}
