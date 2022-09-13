@@ -1,6 +1,9 @@
 import React from 'react'
 import { Context } from '../Context';
 import { useContext } from 'react';
+import { Button } from '@mui/material';
+import { NumericFormat } from 'react-number-format';
+
 
 
 
@@ -14,26 +17,26 @@ function PaymentCard() {
   //   // N = Number of Installments
   //   // EMI = Equated Monthly Installment
   const rate = (interest_rate/100 + (kkdf_rate*interest_rate)/10000 + (bsmv_rate*interest_rate)/10000);
-  const EMI = amount*((rate*((1+rate)**installments)) / (( ((1+ rate)**installments) - 1))).toFixed(2);
-  const totalPayment = (EMI*installments).toFixed(2);
+  const EMI = amount*((rate*((1+rate)**installments)) / (( ((1+ rate)**installments) - 1)));
+  const totalPayment = (EMI*installments);
 
 
   return (
-    <div className='credit-form'>
-      <div>
+    <div className='credit-form paymentCard'>
+      <div className='paymentColumn'>
         <div className='rowTitle'>Interest Rate</div>
-        <div>{interest_rate}%</div>
+        <p><strong>{interest_rate}%</strong></p>
       </div>
-      <div>
+      <div className='paymentColumn'>
         <div className='rowTitle'>Monthly Payment</div>
-        <div>${EMI}</div>
+        <p><strong>$<NumericFormat displayType="text" value={EMI.toFixed(2)} thousandSeparator={true} /></strong></p>
       </div>
-      <div>
+      <div className='paymentColumn'>
         <div className='rowTitle'>Total Payment</div>
-        <div>${totalPayment}</div>
+        <p><strong>$<NumericFormat displayType="text" value={totalPayment.toFixed(2)} thousandSeparator={true} /></strong></p>
       </div>
-      <div>
-        <button>Submit</button>
+      <div className='paymentColumn'>
+        <Button variant="outlined" size="medium" color="error">Payment Table</Button>
       </div>
     </div>
   )
