@@ -1,4 +1,4 @@
-import React, { useContext, forwardRef, useImperativeHandle, useState, useEffect } from 'react'
+import React, { useContext, forwardRef, useImperativeHandle, useState } from 'react'
 import PaymentRow from './PaymentRow';
 import { Context, ContextEMI } from '../Context';
 import './PaymentTable.css'
@@ -8,8 +8,6 @@ function PaymentTable(props, ref) {
   const { entries } = useContext(Context);
 
   const [ trigger, setTrigger ] = useState('');
-
-  const [ new_interval, setNew_interval ] = useState(0);
 
   const { EMI, tableSwitcher, setTableSwitcher } = useContext(ContextEMI); // tableData from PaymentCard.js
 
@@ -23,20 +21,9 @@ function PaymentTable(props, ref) {
   let bsmv = 0;
   let payment = 0;
 
-  useEffect(() => {
-    if(interval === 30) {
-      setNew_interval(1);
-    } else if(interval === 7) {
-      setNew_interval(4);
-    } else if(interval === 365) {
-      setNew_interval(1/12);
-    }
-  }, [interval])
-
   const compoundInterestCalculation = () => {
-
     for (let i = 1; i <= installments; i++) {
-      interest = (balance*((1+(interest_rate/100)*new_interval)**(interval/30)))-balance;
+      interest = (balance*((1+(interest_rate/100))**(interval/30)))-balance;
       kkdf = interest * (kkdf_rate/100);
       bsmv = interest * (bsmv_rate/100);
       payment = EMI - interest - kkdf - bsmv;
@@ -50,7 +37,7 @@ function PaymentTable(props, ref) {
   const simpleInterest = () => {
 
     for (let i = 1; i <= installments; i++) {
-      interest = (balance*((interest_rate/100)*new_interval)*(interval/30));
+      interest = (balance*((interest_rate/100))*(interval/30));
       kkdf = interest * (kkdf_rate/100);
       bsmv = interest * (bsmv_rate/100);
       payment = EMI - interest - kkdf - bsmv;
