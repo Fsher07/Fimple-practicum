@@ -14,22 +14,6 @@ body {
   padding: 5%;
 }
 
-.creditForm-container {
-  padding: 2%;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-.credit-form {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin: 0 auto;
-  padding: 20px;
-}
-
 .formButton {
  text-align: center;
 }
@@ -46,22 +30,3 @@ img {
   color: rgba(0, 0, 0, 0.6);
 }
 
-.paymentCard {
-  border: 5px solid #145CC6;
-  border-radius: 5px;
-  gap: 10em;
-  box-shadow: 5px 5px 30px 10px rgba(0, 0, 0, 0.2);
-}
-
-.paymentColumn {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1em;
-}
-
-.paymentColumn  p {
-  font-size: 1.5em;
-  font-weight: 600;
-}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useContext } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Context } from '../Context';
@@ -6,7 +6,6 @@ import './CreditForm.css'
 import { Button, TextField, MenuItem } from '@mui/material';
 import { NumericFormat } from 'react-number-format';
 import PaymentCard from './PaymentCard';
-import PaymentTable from './PaymentTable';
 
 function CreditForm() {
 
@@ -15,6 +14,7 @@ function CreditForm() {
   
   const { amount } = entries;
 
+  // an array for intervals dropdown
   const intervals = [
     {
       value: 7,
@@ -182,7 +182,6 @@ function CreditForm() {
         </form>
         {amount && <div className='paymentRow bg-white'> <PaymentCard /> </div>}
       </div>
-      <PaymentTable trigger={true} />
     </main>
   )
 }
