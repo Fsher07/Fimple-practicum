@@ -6,13 +6,10 @@ import CreditForm from './components/CreditForm';
 function App() {
 
   const [entries, setEntries] = useState({});
-  const [results, setResults] = useState({});
 
   const data = {
     entries,
     setEntries,
-    results,
-    setResults
   };
 
   return (
