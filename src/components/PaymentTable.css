@@ -1,0 +1,50 @@
+.payment-table {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: auto;
+  width: 80%;
+  height: 80%;
+  background-color: #fff;
+  border-top: 5px solid #145cc6;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  overflow-y: scroll;
+  padding: 2%;
+  z-index: 100;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.closeBtn:hover {
+  background-color: #145cc6;
+  border-radius: 50%;
+  color: #fff;
+}
+
+table {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th {
+  padding-bottom: 3%;
+  border-bottom: 1px solid #5e5e5e;
+}
+
+td {
+  padding: 3% 0;
+  border-bottom: 1px solid #5e5e5e;
+}
+

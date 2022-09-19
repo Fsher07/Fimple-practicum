@@ -1,0 +1,29 @@
+.paymentCard {
+  border: 5px solid #145CC6;
+  border-radius: 5px;
+  justify-content: space-between;
+  gap: 5%;
+  box-shadow: 5px 5px 30px 10px rgba(0, 0, 0, 0.2);
+}
+
+.paymentColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+.rowTitle {
+  text-align: center;
+}
+
+.paymentColumn  p {
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.paymentColumn button {
+  width: 100%;
+  text-align: left;
+}
