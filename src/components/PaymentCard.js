@@ -13,14 +13,24 @@ function PaymentCard() {
 
   const ref = useRef();
 
-  const { amount, interest_rate, kkdf_rate, bsmv_rate, installments } = entries;
+  const { amount, interest_rate, kkdf_rate, bsmv_rate, installments, interval } = entries;
   // EMI = [P x R x (1+R) ^ N] / [(1+R) ^ (N-1)]
   // P = Principal Amount
   // R = Rate of Interest
   // N = Number of Installments
   // EMI = Equated Monthly Installment
-  const rate = (interest_rate/100 + (kkdf_rate*interest_rate)/10000 + (bsmv_rate*interest_rate)/10000);
-  const EMI = amount*((rate*((1+rate)**installments)) / (( ((1+ rate)**installments) - 1)));
+  const new_interest_rate = () => {
+    if (interval === 7) {
+      return interest_rate/(54*100);
+    } else if (interval === 30) {
+      return interest_rate/(100);
+    } else {
+      return interest_rate/(12*100);
+    }
+  };
+
+  const rate = (new_interest_rate() + (kkdf_rate*new_interest_rate())/100 + (bsmv_rate*new_interest_rate())/100);
+  const EMI = amount*((rate*((1+rate)**installments)) / (((1+ rate)**installments) - 1));
   const totalPayment = (EMI*installments);
 
   const tableData = {
@@ -29,6 +39,7 @@ function PaymentCard() {
     totalPayment,
     tableSwitcher,
     setTableSwitcher,
+    new_interest_rate,
   };
 
 
@@ -40,7 +51,7 @@ function PaymentCard() {
         <p><strong>{interest_rate}%</strong></p>
       </div>
       <div className='paymentColumn'>
-        <div className='rowTitle'>Monthly Payment</div>
+        <div className='rowTitle'>Term Payment</div>
         <p><strong>$<NumericFormat displayType="text" value={EMI.toFixed(2)} thousandSeparator={true} /></strong></p>
       </div>
       <div className='paymentColumn'>

@@ -9,7 +9,7 @@ function PaymentTable(props, ref) {
 
   const [ trigger, setTrigger ] = useState('');
 
-  const { EMI, tableSwitcher, setTableSwitcher } = useContext(ContextEMI); // tableData from PaymentCard.js
+  const { EMI, tableSwitcher, setTableSwitcher, new_interest_rate } = useContext(ContextEMI); // tableData from PaymentCard.js
 
   const { amount, interest_rate, kkdf_rate, bsmv_rate, interval, installments } = entries;
 
@@ -21,10 +21,12 @@ function PaymentTable(props, ref) {
   let bsmv = 0;
   let payment = 0;
 
+
   const compoundInterestCalculation = () => {
 
+    console.log(interval)
     for (let i = 1; i <= installments; i++) {
-      interest = (balance*((1+interest_rate/100)**(interval/30))-balance);
+      interest = (balance*((1+new_interest_rate())**(interval/30)))-balance;
       kkdf = interest * (kkdf_rate/100);
       bsmv = interest * (bsmv_rate/100);
       payment = EMI - interest - kkdf - bsmv;
@@ -38,7 +40,7 @@ function PaymentTable(props, ref) {
   const simpleInterest = () => {
 
     for (let i = 1; i <= installments; i++) {
-      interest = (balance*interest_rate/100*(interval/30));
+      interest = (balance*new_interest_rate()*(interval/30));
       kkdf = interest * (kkdf_rate/100);
       bsmv = interest * (bsmv_rate/100);
       payment = EMI - interest - kkdf - bsmv;

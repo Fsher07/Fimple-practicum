@@ -159,7 +159,7 @@ function CreditForm() {
               rules={{ required: true }}
               render={({ field: { onChange, value, name} }) => (
                 <NumericFormat
-                  label='Number of Months'
+                  label='Number of Terms'
                   error={!!errors.installments}
                   name={name}
                   value={value}
