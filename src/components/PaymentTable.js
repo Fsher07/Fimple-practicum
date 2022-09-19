@@ -24,7 +24,6 @@ function PaymentTable(props, ref) {
 
   const compoundInterestCalculation = () => {
 
-    console.log(interval)
     for (let i = 1; i <= installments; i++) {
       interest = (balance*((1+new_interest_rate())**(interval/30)))-balance;
       kkdf = interest * (kkdf_rate/100);
