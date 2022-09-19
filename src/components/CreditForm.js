@@ -1,50 +1,60 @@
-import React from 'react'
-import { useContext } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import { Context } from '../Context';
-import './CreditForm.css'
-import { Button, TextField, MenuItem } from '@mui/material';
-import { NumericFormat } from 'react-number-format';
-import PaymentCard from './PaymentCard';
+import React from "react";
+import { useContext } from "react";
+import { useForm, Controller } from "react-hook-form";
+import { Context } from "../Context";
+import "./CreditForm.css";
+import { Button, TextField, MenuItem } from "@mui/material";
+import { NumericFormat } from "react-number-format";
+import PaymentCard from "./PaymentCard";
 
 function CreditForm() {
-
   const { entries, setEntries } = useContext(Context);
-  const { register, control, handleSubmit, formState: { errors } } = useForm();
-  
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   const { amount } = entries;
 
   // an array for intervals dropdown
   const intervals = [
     {
       value: 7,
-      label: 'Weekly',
+      label: "Weekly",
     },
     {
       value: 30,
-      label: 'Monthly',
+      label: "Monthly",
     },
     {
       value: 365,
-      label: 'Yearly',
+      label: "Yearly",
     },
   ];
 
   const onSubmit = (e) => {
     setEntries(e);
-  }
+  };
 
   return (
     <main>
-      <img src="https://fimple.co.uk/wp-content/uploads/2020/09/Fimple_Logo-edited-logo-2.svg" alt="company logo" />
+      <img
+        src='https://fimple.co.uk/wp-content/uploads/2020/09/Fimple_Logo-edited-logo-2.svg'
+        alt='company logo'
+      />
       <div className='container'>
-        <form className="creditForm-container bg-white" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className='creditForm-container bg-white'
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <div className='credit-form bg-white'>
             <Controller
-              name="amount"
+              name='amount'
               control={control}
               rules={{ required: true }}
-              render={({ field: { onChange, value, name, ref} }) => (
+              render={({ field: { onChange, value, name, ref } }) => (
                 <NumericFormat
                   label='Amount'
                   inputRef={ref}
@@ -56,10 +66,15 @@ function CreditForm() {
                     const { value } = values;
                     return value <= 1000000;
                   }}
-                  helperText={errors.bank_rate ? 'Bank Rate is required' : 'Maximum should be $1,000,000'}
+                  helperText={
+                    errors.bank_rate
+                      ? "Bank Rate is required"
+                      : "Maximum should be $1,000,000"
+                  }
                   onValueChange={(values) => {
-                    const {floatValue} = values;
-                    onChange(floatValue);}}
+                    const { floatValue } = values;
+                    onChange(floatValue);
+                  }}
                   thousandSeparator={true}
                   prefix={"$ "}
                 />
@@ -67,10 +82,10 @@ function CreditForm() {
             />
 
             <Controller
-              name="interest_rate"
+              name='interest_rate'
               control={control}
               rules={{ required: true }}
-              render={({ field: { onChange, value, name} }) => (
+              render={({ field: { onChange, value, name } }) => (
                 <NumericFormat
                   label='Interest Rate'
                   error={!!errors.bank_rate}
@@ -82,18 +97,23 @@ function CreditForm() {
                     return value < 99;
                   }}
                   onValueChange={(values) => {
-                    const {floatValue} = values;
-                    onChange(floatValue);}}
-                  helperText={errors.bank_rate ? 'Bank Rate is required' : 'Maximum should be 99%'}
+                    const { floatValue } = values;
+                    onChange(floatValue);
+                  }}
+                  helperText={
+                    errors.bank_rate
+                      ? "Bank Rate is required"
+                      : "Maximum should be 99%"
+                  }
                   suffix={"%"}
                 />
               )}
             />
             <Controller
-              name="kkdf_rate"
+              name='kkdf_rate'
               control={control}
               rules={{ required: true }}
-              render={({ field: { onChange, value, name} }) => (
+              render={({ field: { onChange, value, name } }) => (
                 <NumericFormat
                   label='KKDF Rate'
                   error={!!errors.kkdf_rate}
@@ -105,19 +125,24 @@ function CreditForm() {
                     return value >= 0 && value <= 15;
                   }}
                   onValueChange={(values) => {
-                    const {floatValue} = values;
-                    onChange(floatValue);}}
-                  helperText={errors.bank_rate ? 'Bank Rate is required' : 'Maximum should be 15%'}
+                    const { floatValue } = values;
+                    onChange(floatValue);
+                  }}
+                  helperText={
+                    errors.bank_rate
+                      ? "Bank Rate is required"
+                      : "Maximum should be 15%"
+                  }
                   suffix={"%"}
                 />
               )}
             />
 
             <Controller
-              name="bsmv_rate"
+              name='bsmv_rate'
               control={control}
               rules={{ required: true }}
-              render={({ field: { onChange, value, name} }) => (
+              render={({ field: { onChange, value, name } }) => (
                 <NumericFormat
                   label='BSMV Rate'
                   error={!!errors.bsmv_rate}
@@ -129,9 +154,14 @@ function CreditForm() {
                     return value >= 0 && value <= 10;
                   }}
                   onValueChange={(values) => {
-                    const {floatValue} = values;
-                    onChange(floatValue);}}
-                    helperText={errors.bank_rate ? 'Bank Rate is required' : 'Maximum should be 10%'}
+                    const { floatValue } = values;
+                    onChange(floatValue);
+                  }}
+                  helperText={
+                    errors.bank_rate
+                      ? "Bank Rate is required"
+                      : "Maximum should be 10%"
+                  }
                   suffix={"%"}
                 />
               )}
@@ -139,10 +169,10 @@ function CreditForm() {
 
             <TextField
               {...register("interval")}
-              id="standard-select-currency"
+              id='standard-select-currency'
               select
-              label="Select"
-              helperText="Select Payment frequency"
+              label='Select'
+              helperText='Select Payment frequency'
               defaultValue={30}
             >
               {intervals.map((option) => (
@@ -153,10 +183,10 @@ function CreditForm() {
             </TextField>
             {/* create a dropdown with Controller for number of installments */}
             <Controller
-              name="installments"
+              name='installments'
               control={control}
               rules={{ required: true }}
-              render={({ field: { onChange, value, name} }) => (
+              render={({ field: { onChange, value, name } }) => (
                 <NumericFormat
                   label='Number of Terms'
                   error={!!errors.installments}
@@ -168,21 +198,38 @@ function CreditForm() {
                     return value >= 0 && value <= 120;
                   }}
                   onValueChange={(values) => {
-                    const {floatValue} = values;
-                    onChange(floatValue);}}
-                  helperText={errors.bank_rate ? 'This field is required' : 'Maximum should be 120'}
+                    const { floatValue } = values;
+                    onChange(floatValue);
+                  }}
+                  helperText={
+                    errors.bank_rate
+                      ? "This field is required"
+                      : "Maximum should be 120"
+                  }
                 />
               )}
             />
           </div>
           <div className='formButton'>
-            <Button type="submit" variant="contained" color="error" size="large">Calculate</Button>
+            <Button
+              type='submit'
+              variant='contained'
+              color='error'
+              size='large'
+            >
+              Calculate
+            </Button>
           </div>
         </form>
-        {amount && <div className='paymentRow bg-white'> <PaymentCard /> </div>}
+        {amount && (
+          <div className='paymentRow bg-white'>
+            {" "}
+            <PaymentCard />{" "}
+          </div>
+        )}
       </div>
     </main>
-  )
+  );
 }
 
-export default CreditForm
+export default CreditForm;
