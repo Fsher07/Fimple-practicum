@@ -32,7 +32,6 @@ function CreditForm() {
 
   const onSubmit = (e) => {
     setEntries(e);
-    console.log(entries);
   }
 
   return (
